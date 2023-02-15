@@ -15,7 +15,7 @@ const lists = [
     let listsHtml = '<ul class="list-group">';
     // iterate through the lists to get their names
     lists.forEach((list) => {
-      listsHtml += `<li id="${list.id}" class="list-group-item">${list.name}</li>`;
+      listsHtml += `<li id="${list.id}" class="list-group-item list-box">${list.name}</li>`;
     });
    
     listsHtml += '</ul>';
@@ -26,15 +26,17 @@ const lists = [
    
     document.getElementById('current-list-name').innerText = currentList.name;
     // iterate over the todos in the current list
-   if (currentList.todos[0]) {
-
-    let todosHtml = '<ul class="list-group-flush">';
+    let todosHtml = '<ul class="list-group">';
     currentList.todos.forEach((list) => {
-      todosHtml += `<li class="list-group-item"><input class ="check" type="checkbox">${todo.text}</li>`;
+      todosHtml += `<li class="list-group-item"><i class="bi bi-check-lg"></i>${list.text}</li>`;
     });
     // print out the todos
-    document.getElementById('current-list-todos').innerHTML = todosHtml;
-   }
+    
+
+   document.getElementById('current-list-todos').innerHTML = todosHtml;
+
+
+    // show active list
    lists.forEach((list) => {
     if (currentList.id === list.id) {
         document.getElementById(currentList.id).classList.add("active")
@@ -56,6 +58,7 @@ const lists = [
         text: text,
         completed: false
       })
+      document.getElementById('todo-input-box').value = ''
       render();
     }
    }

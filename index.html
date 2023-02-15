@@ -29,20 +29,12 @@
             <div class="row">
                 <!-- left -->
               <div  class="p-0 col-3">
-                <div class="search">
-                    <i class="bi bi-search"></i>
-                    <input id="search-input-box" type="text" placeholder="Search Lists" class="search-input">
-                </div>
                 <div class="add-list">
-                    <input id="list-input-box" type="text" placeholder="Create List" class="list-search">
+                    <input id="list-input-box" type="text" placeholder="Create List..." class="create-list">
                     <div class="plus-button" onclick="addList()"><i class="bi bi-plus-lg" ></i></div>
                 </div>
                 <div id="lists">
-                    <ul class="list-group">
-                        <li class="list-group-item active">Test</li>
-                        <li class="list-group-item">Another Test</li>
-                        <li class="list-group-item">Yet Another Test</li>
-                    </ul>
+                    
                 </div>
               </div>
               <!-- left end -->
@@ -51,9 +43,16 @@
                 <div class="inner">
                     <div  class="list-title"><div id="current-list-name">Test</div><i class="bi bi-trash trash"></i></div>
                     <ul class="list-group">
-                        <li class="list-group-item"><input class ="check" type="checkbox"> Cras justo odio</li>
-                        <li class="list-group-item"><i class="bi bi-plus-lg"></i><input id="todo-input-box" type="text"></li>
-                      </ul>
+                        <li class="list-group-item create">
+                            <div class="todo-creation">
+                                <div class="plus-button-right" onclick="addTodo()"><i class="bi bi-plus-lg"></i></div>
+                                <input id="todo-input-box" class="todo-input" type="text" placeholder="Create Todo..." >
+                            </div>
+                        </li>
+                    </ul>
+                    <div id="current-list-todos">
+
+                    </div>
                 </div>
               </div>
               <!-- right end -->
