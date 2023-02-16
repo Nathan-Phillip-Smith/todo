@@ -1,6 +1,24 @@
-// list creation functions
-const lists = []
-   let currentList = lists[0];
+let lists;
+let currentList;
+
+function setStorage() {
+    if(JSON.parse(localStorage.getItem('lists')) !== null) {
+        lists = JSON.parse(localStorage.getItem('lists'));
+    } else {
+        lists = []
+    }
+    if(JSON.parse(localStorage.getItem('currentList')) !== null) {
+     currentList = JSON.parse(localStorage.getItem('currentList'));
+    } else {
+        currentList = []
+    }
+}
+
+
+setStorage()
+render()
+
+
 
 
 
@@ -34,12 +52,13 @@ const lists = []
     let todosHtml = '<ul class="list-group">';
     if (lists[0]){
         currentList.todos.forEach((list) => {
-            todosHtml += `<li id="${list.id}" class="list-group-item words-and-menu">
+            if (list.completed === false) {
+                todosHtml += `<li id="${list.id}" class="list-group-item words-and-menu">
             <label class="container">
-                <input type="checkbox">
+                <input id="${list.id}" type="checkbox" onclick="markTodoAsCompleted(this.id)">
                 <span class="checkmark"></span>
             </label>
-            <div class=list-text>
+            <div id="${list.id}" class="list-text" onclick="markTodoAsCompleted(this.id)">
                 ${list.text}
             </div>
             <div class="dropleft">
@@ -47,11 +66,31 @@ const lists = []
                     <i class="bi bi-list"></i>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item">Delete Task</a>
+                <a id="${list.id}" class="dropdown-item" onclick="removeTodo(this.id)">Delete Task</a>
                 </div>
             </div>
             </div>
             </li>`;
+            } else {
+                todosHtml += `<li id="${list.id}" class="list-group-item words-and-menu">
+            <label class="container">
+                <input id="${list.id}" type="checkbox" checked onclick="markTodoAsCompleted(this.id)">
+                <span class="checkmark"></span>
+            </label>
+            <div id="${list.id}" class=list-text onclick="markTodoAsCompleted(this.id)">
+                ${list.text}
+            </div>
+            <div class="dropleft">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a id="${list.id}" class="dropdown-item" onclick="removeTodo(this.id)">Delete Task</a>
+                </div>
+            </div>
+            </div>
+            </li>`;
+            }
           });
     }
     
@@ -83,6 +122,7 @@ const lists = []
       })
       document.getElementById('todo-input-box').value = ''
       render();
+      save();
     }
    }
 
@@ -98,6 +138,7 @@ const lists = []
         currentList = lists[lists.length - 1]
         document.getElementById('list-input-box').value = ''
     render();
+    save();
    }
 }
 
@@ -106,23 +147,37 @@ const lists = []
     lists.splice(lists.findIndex((elem) => elem.id === currentList.id), 1)
     currentList = lists[0]
     render();
+    save();
    }
 
-   function removeTodo() {
+   function removeTodo(clickedId) {
+    currentList.todos.splice(currentList.todos.findIndex((elem) => elem.id === clickedId), 1)
+    console.log(currentList.todos)
     render();
+    save();
    }
 
-   function markTodoAsCompleted() {
+   function markTodoAsCompleted(clickedId) {
+    if(currentList.todos[currentList.todos.findIndex((elem) => elem.id === clickedId)].completed === false) {
+        currentList.todos[currentList.todos.findIndex((elem) => elem.id === clickedId)].completed = true
+    } else {
+        currentList.todos[currentList.todos.findIndex((elem) => elem.id === clickedId)].completed = false
+    }
     render();
+    save();
    }
 
    function removeAllTodosCompleted() {
+    currentList.todos = currentList.todos.filter((elem) => elem.completed === false);
     render();
+    save();
    }
+
    function changeList(clickedId) {
     if (clickedId !== currentList.id) {
         currentList = lists[lists.findIndex((elem) => elem.id === clickedId)]
-        render()
+        render();
+        save();
     }
     
    }
@@ -132,8 +187,20 @@ const lists = []
 function randomIdentifier() {
     return Math.random().toString(36).slice(2)
 }
+function save() {
+    localStorage.setItem('currentList', JSON.stringify(currentList)); 
+    localStorage.setItem('lists', JSON.stringify(lists));
+   }
+function reset() {
+    localStorage.removeItem('currentList', JSON.stringify(currentList)); 
+    localStorage.removeItem('lists', JSON.stringify(lists));
+    console.log(JSON.parse(localStorage.getItem('lists')))
+    setStorage();
+    render();
+    console.log(JSON.parse(localStorage.getItem('lists')))
+   }
 
-      console.log(lists[lists.length-1])
+      
 
 
 
