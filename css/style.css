@@ -56,8 +56,17 @@ align-items: center;
     height: 100vh;
     background-color: #f0f0f0;
 }
+
+.filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+}
+.bi-filter {
+    color: black;
+}
 .add-list {
-    margin-top: 20px;
     width: 100%;
     background-color: white;
     border: 1px solid #d4d4d4;
@@ -113,9 +122,7 @@ align-items: center;
 .menu{
     display: none;
 }
-.btn {
-    background-color: white !important;
-    border: none !important;
+.btn-right {
     font-size: 20px !important;
 }
 .bi-plus-lg {

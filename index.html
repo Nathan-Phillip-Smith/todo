@@ -24,6 +24,18 @@
             <div class="row">
                 <!-- left -->
               <div  class="p-0 col-3">
+                <div class="filter-container">
+                    <div class="filter dropleft">
+                            <button class=" btn btn-left" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="bi bi-filter"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" onclick="filterName()">Alphabetical</a>
+                              <a class="dropdown-item" onclick="filterTimeNew()">Newest</a>
+                              <a class="dropdown-item" onclick="filterTimeOld()">Oldest</a>
+                            </div>
+                        </div>
+                </div>
                 <div class="add-list">
                     <input id="list-input-box" type="text" placeholder="Create List..." class="create-list">
                     <div class="plus-button" onclick="addList()"><i class="bi bi-plus-lg" ></i></div>
@@ -41,7 +53,7 @@
                             <p class="getting-started"><i class="bi bi-arrow-left-circle"></i> Create Your First List.</p>
                         </div>
                         <div id="dropdown" class="menu dropleft">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="bi bi-list"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

@@ -62,7 +62,7 @@ render()
                 ${list.text}
             </div>
             <div class="dropleft">
-                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="bi bi-list"></i>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -81,7 +81,7 @@ render()
                 ${list.text}
             </div>
             <div class="dropleft">
-                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="bi bi-list"></i>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -129,10 +129,12 @@ render()
    function addList() {
     const text = document.getElementById('list-input-box').value;
     if(text) {
+        let date = new Date()
         let id = randomIdentifier()
         lists.push({
             id: id,
             name: text,
+            timeStamp: date,
             todos: []
         })
         currentList = lists[lists.length - 1]
@@ -200,6 +202,38 @@ function reset() {
     console.log(JSON.parse(localStorage.getItem('lists')))
    }
 
+ function filterTimeNew() {
+    lists = lists.sort((a, b) => {
+        return new Date(b.timeStamp) - new Date(a.timeStamp)
+    })
+    render();
+    save();
+ }
+
+ function filterTimeOld() {
+    lists = lists.sort((a, b) => {
+        return new Date(a.timeStamp) - new Date(b.timeStamp)
+    })
+    render();
+    save();
+ }
+
+ function filterName() {
+    lists = lists.sort((a, b) => {
+        if(a.name === b.name) {
+            return 0;
+        } else if (a.name > b.name) {
+            return 1
+        } else {
+            return -1
+        }
+    })
+    render();
+    save();
+ }
+
+ console.log(lists)
+ 
       
 
 
